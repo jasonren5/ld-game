@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     float score = 0;
-
     float waveInterval = 2;
     float timeSinceLastWave = 0;
 
+    bool isAlive;
+
     //UI Outlets
     public Text scoreText;
+    public Canvas endGameScreen;
 
     //obstacle Outlets
     public GameObject spawnPoint;
@@ -29,6 +31,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isAlive = true;
         UpdateInterface();
         timeSinceLastWave = Time.time;
     }
@@ -36,14 +39,18 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        score += Time.deltaTime * 1000;
+        if (isAlive)
+        {
+            score += Time.deltaTime * 1000;
+            if (CheckSpawnWave())
+            {
+                SpawnAsteroid();
+                timeSinceLastWave = Time.time;
+            }
+        }
+        
         UpdateInterface();
 
-        if (CheckSpawnWave())
-        {
-            SpawnAsteroid();
-            timeSinceLastWave = Time.time;
-        }
     }
     
 
@@ -69,11 +76,21 @@ public class GameController : MonoBehaviour
     void SpawnAsteroid()
     {
         int asteroidToSpawn = Random.Range(0, asteroids.Length);
-        Instantiate(asteroids[asteroidToSpawn], spawnPoint.transform.position, new Quaternion());
+        Vector3 startingPosition = spawnPoint.transform.position + RandomSpawnPoint();
+        Instantiate(asteroids[asteroidToSpawn], startingPosition, new Quaternion());
     }
 
     public void EndGame()
     {
+        isAlive = false;
+        endGameScreen.gameObject.SetActive(true);
+    }
 
+    Vector3 RandomSpawnPoint()
+    {
+        float xBound = 18;
+        float yBound = 12;
+
+        return new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound));
     }
 }

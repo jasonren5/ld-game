@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    bool isAlive;
 
-    //maximum amount the player can move from origin
-    private float MAX_MOVEMENT = 10f;
     public float speed = 1f;
     public float maxSpeed = 9f;
     private Vector2 screenCenter;
@@ -15,6 +14,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isAlive = true;
         screenCenter = GetScreenCenter();
 
         rb = GetComponent<Rigidbody>();
@@ -28,7 +28,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (isAlive)
+        {
+            HandleMovement();
+        }
+        
     }
 
     Vector2 GetScreenCenter()
@@ -64,6 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
+            isAlive = false;
             Die();
         }
     }
@@ -71,6 +76,9 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log("dead");
+        GameController.instance.EndGame();
+
+        rb.constraints = RigidbodyConstraints.None;
     }
 
 
