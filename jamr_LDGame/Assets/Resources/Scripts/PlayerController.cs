@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -45,23 +45,37 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector3 mousePos = GetRelativeMousePosition().normalized;
+        Vector3 mousePos = GetRelativeMousePosition();
 
         rb.AddRelativeForce(mousePos * speed, ForceMode.Acceleration);
+
 
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
         }
+
+        Debug.Log(mousePos);
+
+        transform.rotation = Quaternion.Euler(mousePos.y * -10f, mousePos.x * 18f, 0f);
+    }
+
+    void HandleRotation()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * 10f * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * 10f * Time.deltaTime;
+
+        transform.localRotation = Quaternion.AngleAxis(mouseX, Vector3.right);
+        transform.localRotation = Quaternion.AngleAxis(mouseY, Vector3.up);
     }
 
     /*
-     * Returns the mouse position relative to the center of the screen (0, 0).
+     * Returns the mouse position relative to the center of the screen (0, 0) and number of pixels.
      */
     Vector3 GetRelativeMousePosition()
     {
         Vector3 mousePosition = Input.mousePosition;
-        return new Vector3(mousePosition.x - screenCenter.x, mousePosition.y - screenCenter.y);
+        return new Vector3((mousePosition.x - screenCenter.x) / Screen.width, (mousePosition.y - screenCenter.y) / Screen.height);
     }
 
     void OnCollisionEnter(Collision collision)

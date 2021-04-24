@@ -22,7 +22,12 @@ public class Obstacle : MonoBehaviour
             float yRotation = Random.value * 360;
             float zRotation = Random.value * 360;
 
-            //TODO
+            //set starting rotation
+            transform.localRotation = new Quaternion(xRotation, yRotation, zRotation, 0f);
+
+            //set rotation speed
+            float rotationalForce = Random.Range(-45, 45);
+            rb.AddTorque(new Vector3(xRotation, yRotation, zRotation).normalized * rotationalForce);
         }
 
         
@@ -33,6 +38,6 @@ public class Obstacle : MonoBehaviour
     {
         rb.velocity = new Vector3(0, 0, -1 * GameController.instance.GetSpeed());
 
-        transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 2);
+        transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 3);
     }
 }
