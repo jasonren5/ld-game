@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 
         rb.AddRelativeForce(mousePos * speed, ForceMode.Acceleration);
 
-        Debug.Log(rb.velocity.magnitude);
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
@@ -59,6 +58,19 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePosition = Input.mousePosition;
         return new Vector3(mousePosition.x - screenCenter.x, mousePosition.y - screenCenter.y);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("dead");
     }
 
 
