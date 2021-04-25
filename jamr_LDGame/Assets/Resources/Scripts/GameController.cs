@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     float waveInterval = 10;
     float timeSinceLastWave = 0;
     int obstaclesToSpawn = 2;
+    float obstacleSpeed = 0f;
 
     public bool isAlive;
 
@@ -44,8 +45,10 @@ public class GameController : MonoBehaviour
     {
         if (isAlive)
         {
+            
             extraPoints += Time.deltaTime / 10;
             score += Time.deltaTime * 100 + extraPoints;
+            obstacleSpeed = CalculateSpeed();
             if (CheckSpawnWave())
             {
                 SpawnAsteroid();
@@ -65,11 +68,16 @@ public class GameController : MonoBehaviour
         scoreText.text = Mathf.Floor(score).ToString();
     }
 
+    public float CalculateSpeed()
+    {
+        return 5 + Mathf.Log(1 + (score / 100), 1.1f);
+    }
+
     public float GetSpeed()
     {
         if (isAlive)
         {
-            return 5 + Mathf.Log(1 + (score / 100), 1.1f);
+            return obstacleSpeed;
         }
 
         return 0;
