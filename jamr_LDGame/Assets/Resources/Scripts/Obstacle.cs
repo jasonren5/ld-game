@@ -46,5 +46,20 @@ public class Obstacle : MonoBehaviour
 
         transform.localScale = new Vector3(scale, scale, scale);
         //transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 3);
+
+        if (CheckDelete())
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    bool CheckDelete()
+    {
+        if (transform.position.z < -20f)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

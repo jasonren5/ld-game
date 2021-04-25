@@ -50,12 +50,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = GetRelativeMousePosition();
 
+        Debug.Log(mousePos);
+
         rb.AddRelativeForce(mousePos * speed, ForceMode.Acceleration);
 
 
         if (rb.velocity.magnitude > maxSpeed)
         {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
         }
 
         transform.rotation = Quaternion.Euler(mousePos.y * -10f, mousePos.x * 18f, 0f);
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
     Vector3 GetRelativeMousePosition()
     {
         Vector3 mousePosition = Input.mousePosition;
-        return new Vector3((mousePosition.x - screenCenter.x) / Screen.width, (mousePosition.y - screenCenter.y) / Screen.height);
+        return new Vector3((mousePosition.x - screenCenter.x) / (Screen.width / 2), (mousePosition.y - screenCenter.y) / (Screen.height / 2), 0f);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -100,7 +102,11 @@ public class PlayerController : MonoBehaviour
     //should probably change it to point closer to where the player is looking?
     void UpdateSpawnpointLocation()
     {
-        spawnPoint.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + spawnPointOffset);
+        Vector3 mousePos = GetRelativeMousePosition();
+
+        float xExtrapolated = transform.position.x + 1000 / GameController.instance.GetSpeed() * mousePos.x;
+        float yExtrapolated = transform.position.y + 80 / GameController.instance.GetSpeed() * mousePos.y;
+        spawnPoint.transform.position = new Vector3(xExtrapolated, yExtrapolated, transform.position.z + spawnPointOffset);
     }
 
 }

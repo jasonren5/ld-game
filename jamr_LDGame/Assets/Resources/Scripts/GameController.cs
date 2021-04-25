@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public Canvas endGameScreen;
 
     //obstacle Outlets
-    public GameObject spawnPoint;
+    public GameObject[] spawnPoints;
     public GameObject[] asteroids;
 
     public static GameController instance;
@@ -85,9 +85,13 @@ public class GameController : MonoBehaviour
 
     void SpawnAsteroid()
     {
-        int asteroidToSpawn = Random.Range(0, asteroids.Length);
-        Vector3 startingPosition = spawnPoint.transform.position + RandomSpawnPoint();
-        Instantiate(asteroids[asteroidToSpawn], startingPosition, new Quaternion());
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            int asteroidToSpawn = Random.Range(0, asteroids.Length);
+            Vector3 startingPosition = spawnPoints[i].transform.position + RandomSpawnPoint();
+            Instantiate(asteroids[asteroidToSpawn], startingPosition, new Quaternion());
+        }
+
     }
 
     public void EndGame()
