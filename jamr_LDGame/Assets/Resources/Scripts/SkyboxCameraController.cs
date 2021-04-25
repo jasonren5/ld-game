@@ -26,7 +26,11 @@ public class SkyboxCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateRotation();
+        if (mainCamera)
+        {
+            UpdateRotation();
+        }
+        
     }
 
     void UpdatePosition()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     float extraPoints = 0;
@@ -59,6 +59,14 @@ public class GameController : MonoBehaviour
         
         UpdateInterface();
 
+        if (!isAlive)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+
     }
 
     
@@ -110,6 +118,7 @@ public class GameController : MonoBehaviour
     {
         isAlive = false;
         endGameScreen.gameObject.SetActive(true);
+        scoreText.color = Color.white;
     }
 
     Vector3 RandomSpawnPoint()

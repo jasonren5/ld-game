@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
 
         rb.AddRelativeForce(mousePos * speed, ForceMode.Acceleration);
 
-
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
