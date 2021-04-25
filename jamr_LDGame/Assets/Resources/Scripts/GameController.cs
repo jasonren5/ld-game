@@ -102,8 +102,8 @@ public class GameController : MonoBehaviour
 
     Vector3 RandomSpawnPoint()
     {
-        float xBound = 25;
-        float yBound = 16;
+        float xBound = 7;
+        float yBound = 7;
 
         return new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound));
     }

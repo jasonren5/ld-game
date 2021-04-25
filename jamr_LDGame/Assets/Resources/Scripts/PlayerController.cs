@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     bool isAlive;
 
-    public float speed = 1f;
-    public float maxSpeed = 9f;
+    public float speed = 2f;
+    public float maxSpeed = 4f;
     private Vector2 screenCenter;
     private Rigidbody rb;
 
@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSpawnpointLocation();
+        if (isAlive)
+        {
+            UpdateSpawnpointLocation();
+        }
+        
     }
 
     private void FixedUpdate()
@@ -104,8 +108,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = GetRelativeMousePosition();
 
-        float xExtrapolated = transform.position.x + 1000 / GameController.instance.GetSpeed() * mousePos.x;
-        float yExtrapolated = transform.position.y + 80 / GameController.instance.GetSpeed() * mousePos.y;
+        float xExtrapolated = transform.position.x + 2000 / GameController.instance.GetSpeed() * mousePos.x;
+        float yExtrapolated = transform.position.y + 2000 / GameController.instance.GetSpeed() * mousePos.y;
         spawnPoint.transform.position = new Vector3(xExtrapolated, yExtrapolated, transform.position.z + spawnPointOffset);
     }
 
