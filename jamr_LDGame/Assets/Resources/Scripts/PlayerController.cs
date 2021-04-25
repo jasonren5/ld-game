@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     bool isAlive;
 
-    public float speed = 2f;
+    public float speed = 2.5f;
     public float maxSpeed = 4f;
     private Vector2 screenCenter;
     private Rigidbody rb;

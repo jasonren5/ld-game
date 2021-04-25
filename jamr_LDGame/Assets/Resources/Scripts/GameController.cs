@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
         {
             
             extraPoints += Time.deltaTime / 10;
-            score += Time.deltaTime * 100 + extraPoints;
+            score += Time.deltaTime * 10 + extraPoints;
             obstacleSpeed = CalculateSpeed();
             if (CheckSpawnWave())
             {
@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
 
     public float CalculateSpeed()
     {
-        return 5 + Mathf.Log(1 + (score / 100), 1.1f);
+        return 5 + Mathf.Log(1 + (score / 400), 1.05f);
     }
 
     public float GetSpeed()
@@ -85,7 +85,8 @@ public class GameController : MonoBehaviour
 
     bool CheckSpawnWave()
     {
-        waveInterval = 1 + 10 / (score / 100);
+        //waveInterval = 1.15f + 10 / (score / 500);
+        waveInterval = 1.15f;
         if (Time.time > timeSinceLastWave + waveInterval)
         {
             Debug.Log("waveInterval: " + waveInterval);

@@ -24,7 +24,7 @@ public class SkyboxObject : MonoBehaviour
     {
         if (rb && GameController.instance.isAlive)
         {
-            rb.velocity = new Vector3(0, 0, -1f);
+            rb.velocity = new Vector3(0, 0, -1.25f);
 
             float distance = Vector3.Distance(transform.position, skyboxCamera.position);
             float scale = Mathf.SmoothStep(minScale, startingScale, 10/distance);
