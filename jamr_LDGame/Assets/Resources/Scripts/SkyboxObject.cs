@@ -22,12 +22,12 @@ public class SkyboxObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rb)
+        if (rb && GameController.instance.isAlive)
         {
-            rb.velocity = new Vector3(0, 0, -10 * GameController.instance.GetSpeed() / 200f);
+            rb.velocity = new Vector3(0, 0, -1f);
 
             float distance = Vector3.Distance(transform.position, skyboxCamera.position);
-            float scale = Mathf.SmoothStep(minScale, startingScale, 20/distance);
+            float scale = Mathf.SmoothStep(minScale, startingScale, 10/distance);
 
             transform.localScale = new Vector3(scale, scale, scale);
         }

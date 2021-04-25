@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     public GameObject spawnPoint;
-    private float spawnPointOffset = 300f;
+    private float spawnPointOffset = 500f;
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log("dead");
+        rb.drag = .2f;
+        rb.angularDrag = 1f;
         GameController.instance.EndGame();
 
         rb.constraints = RigidbodyConstraints.None;

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    float extraPoints = 0;
     float score = 0;
     float waveInterval = 10;
     float timeSinceLastWave = 0;
     int obstaclesToSpawn = 2;
 
-    bool isAlive;
+    public bool isAlive;
 
     //UI Outlets
     public Text scoreText;
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        extraPoints = 0;
         isAlive = true;
         UpdateInterface();
         timeSinceLastWave = Time.time;
@@ -42,7 +44,8 @@ public class GameController : MonoBehaviour
     {
         if (isAlive)
         {
-            score += Time.deltaTime * 100;
+            extraPoints += Time.deltaTime / 10;
+            score += Time.deltaTime * 100 + extraPoints;
             if (CheckSpawnWave())
             {
                 SpawnAsteroid();
