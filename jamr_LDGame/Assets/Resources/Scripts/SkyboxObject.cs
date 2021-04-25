@@ -7,7 +7,7 @@ public class SkyboxObject : MonoBehaviour
     Rigidbody rb;
     Transform skyboxCamera;
     float startingScale;
-    float minScale = .1f;
+    float minScale = .03f;
     float startingDistance;
     // Start is called before the first frame update
     void Start()
