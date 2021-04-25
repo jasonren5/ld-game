@@ -42,7 +42,7 @@ public class Obstacle : MonoBehaviour
     {
         rb.velocity = new Vector3(0, 0, -1 * GameController.instance.GetSpeed());
 
-        scale = Mathf.SmoothStep(.1f, startingScale, (Time.time - spawnTime) / 3);
+        scale = Mathf.SmoothStep(.1f, startingScale, (Time.time - spawnTime) / 2);
 
         transform.localScale = new Vector3(scale, scale, scale);
         //transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 3);
