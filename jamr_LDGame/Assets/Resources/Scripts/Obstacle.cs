@@ -5,12 +5,16 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     public bool randomizeRotation = true;
-    public Rigidbody rb;
+    Rigidbody rb;
     public float speedMultiplier;
     float spawnTime;
+
+    float scale = .1f;
+    float startingScale;
     // Start is called before the first frame update
     void Start()
     {
+        startingScale = transform.localScale.x;
         transform.localScale = new Vector3(.1f, .1f, .1f);
         spawnTime = Time.time;
 
@@ -38,6 +42,9 @@ public class Obstacle : MonoBehaviour
     {
         rb.velocity = new Vector3(0, 0, -1 * GameController.instance.GetSpeed());
 
-        transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 3);
+        scale = Mathf.SmoothStep(.1f, startingScale, (Time.time - spawnTime) / 3);
+
+        transform.localScale = new Vector3(scale, scale, scale);
+        //transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, (Time.time - spawnTime) / 3);
     }
 }

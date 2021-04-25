@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     float score = 0;
-    float waveInterval = 2;
+    float waveInterval = 10;
     float timeSinceLastWave = 0;
+    int obstaclesToSpawn = 2;
 
     bool isAlive;
 
@@ -41,10 +42,11 @@ public class GameController : MonoBehaviour
     {
         if (isAlive)
         {
-            score += Time.deltaTime * 1000;
+            score += Time.deltaTime * 100;
             if (CheckSpawnWave())
             {
                 SpawnAsteroid();
+                
                 timeSinceLastWave = Time.time;
             }
         }
@@ -52,6 +54,7 @@ public class GameController : MonoBehaviour
         UpdateInterface();
 
     }
+
     
 
     void UpdateInterface()
@@ -61,13 +64,20 @@ public class GameController : MonoBehaviour
 
     public float GetSpeed()
     {
-        return Mathf.Sqrt(score / 10);
+        if (isAlive)
+        {
+            return 5 + Mathf.Log(1 + (score / 100), 1.1f);
+        }
+
+        return 0;
     }
 
     bool CheckSpawnWave()
     {
+        waveInterval = 1 + 10 / (score / 100);
         if (Time.time > timeSinceLastWave + waveInterval)
         {
+            Debug.Log("waveInterval: " + waveInterval);
             return true;
         }
         return false;
@@ -88,8 +98,8 @@ public class GameController : MonoBehaviour
 
     Vector3 RandomSpawnPoint()
     {
-        float xBound = 18;
-        float yBound = 12;
+        float xBound = 25;
+        float yBound = 16;
 
         return new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound));
     }

@@ -6,14 +6,14 @@ public class SkyboxCameraController : MonoBehaviour
 {
     Camera mainCamera;
     Vector3 startingPosition;
-    float interval;
+    float interval = 200f;
 
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
         startingPosition = this.transform.position;
-        interval = 2000f;
+        interval = 200f;
     }
 
     // Update is called once per frame

@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 screenCenter;
     private Rigidbody rb;
 
+    public GameObject spawnPoint;
+    private float spawnPointOffset = 300f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateSpawnpointLocation();
     }
 
     private void FixedUpdate()
@@ -54,8 +57,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
         }
-
-        Debug.Log(mousePos);
 
         transform.rotation = Quaternion.Euler(mousePos.y * -10f, mousePos.x * 18f, 0f);
     }
@@ -95,5 +96,11 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
     }
 
+
+    //should probably change it to point closer to where the player is looking?
+    void UpdateSpawnpointLocation()
+    {
+        spawnPoint.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + spawnPointOffset);
+    }
 
 }
