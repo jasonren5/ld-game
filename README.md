@@ -12,4 +12,4 @@ I developed Outvoyage for the 48th Ludem Dare Compo, a game jam where developers
 
 ### Notes
 
-I used the [joystix font](https://typodermicfonts.com/proportional-joystix/), which is available for free for commerials usage.
+I used the [joystix font](https://typodermicfonts.com/proportional-joystix/), which is available for free for commercial usage.
